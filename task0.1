@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            background-image: url('https://2.imimg.com/data2/EO/GW/MY-1210060/notepad-500x500.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .task-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+        }
+
+        .list-group-item {
+            background: rgba(255, 255, 255, 0.2);
+            margin-top: 5px;
+            color: white;
+        }
+
+        .delete-btn {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="task-container">
+        <h1 class="text-center mb-4">Task Manager</h1>
+
+        <form onsubmit="addTask(event)">
+            <div class="form-group">
+                <input type="text" class="form-control" id="taskInput" placeholder="Add new task" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add task</button>
+        </form>
+
+        <ul class="list-group mt-4" id="taskList">
+            <!-- List Task -->
+        </ul>
+    </div>
+
+    <script>
+        function addTask(event) {
+            event.preventDefault();
+
+            var taskInput = document.getElementById('taskInput');
+            var taskList = document.getElementById('taskList');
+
+            var taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                var listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.textContent = taskText;
+
+                var deleteBtn = document.createElement('span');
+                deleteBtn.className = 'badge badge-danger badge-pill delete-btn';
+                deleteBtn.textContent = 'Delete';
+
+                deleteBtn.onclick = function() {
+                    taskList.removeChild(listItem);
+                };
+
+                listItem.appendChild(deleteBtn);
+                taskList.appendChild(listItem);
+
+                taskInput.value = '';
+            }
+        }
+    </script>
+</body>
+
+</html>
